@@ -10,10 +10,7 @@ public class Game_Controller : MonoBehaviour
     public Sprite backSprite; // Back sprite
     public float showTime = 5f; // Time to show the cards before returning them to the original state
 
-    public void Awake()
-    {
-        Initialize_Game();
-    }
+   
     public void Initialize_Game()
     {
         if (cards == null || cards.Count == 0)

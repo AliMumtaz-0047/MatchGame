@@ -25,19 +25,28 @@ public class Input_Controller : MonoBehaviour
         // Check if the left mouse button is clicked and the turn is over
         if (Input.GetMouseButtonDown(0) && isTurnOver)
         {
+            SoundManager.Instance.PlayClip(SoundManager.Instance.OnMouseClick);
             // Check if the mouse is over a UI element
             if (EventSystem.current.IsPointerOverGameObject())
             {
                 // Get the clicked UI object
                 GameObject clickedObject = GetClickedUIObject();
 
-                // Check if the clicked object has the Cards component
-                Cards card = clickedObject.GetComponent<Cards>();
-                if (card != null && !card.isFaceUp)
+                // Check if the clicked object exists and has the Cards component
+                if (clickedObject != null)
                 {
+                    Cards card = clickedObject.GetComponent<Cards>();
+                    if (card != null && !card.isFaceUp)
+                    {
+                        SoundManager.Instance.PlayClip(SoundManager.Instance.ClickOnCard);
 
-                    Debug.Log("Card Name: " + card.Card_Name);
-                    SelectCard(card);
+                        Debug.Log("Card Name: " + card.Card_Name);
+                        SelectCard(card);
+                    }
+                }
+                else
+                {
+                    Debug.Log("Clicked object is null.");
                 }
             }
         }
@@ -94,6 +103,7 @@ public class Input_Controller : MonoBehaviour
             selectedCard1.gameObject.SetActive(false);
             selectedCard2.gameObject.SetActive(false);
             UpdateMatchText();
+            SoundManager.Instance.PlayClip(SoundManager.Instance.CardMatch);
 
 
         }
@@ -101,6 +111,7 @@ public class Input_Controller : MonoBehaviour
         {
             selectedCard1.Flip();
             selectedCard2.Flip();
+            SoundManager.Instance.PlayClip(SoundManager.Instance.CardMisMatch);
 
         }
 
